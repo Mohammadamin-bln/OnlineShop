@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Dtos\" />
     <Folder Include="Features\User\Queries\" />
-    <Folder Include="Mappings\" />
   </ItemGroup>
 
   <ItemGroup>

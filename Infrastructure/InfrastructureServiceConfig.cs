@@ -4,8 +4,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces.BaseRepository;
+using Application.Interfaces.UnitOfWork;
+using Application.Interfaces.User;
 using Infrastructure.Authorization;
 using Infrastructure.Contexts;
+using Infrastructure.Repositories;
+using Infrastructure.Repositories.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,8 +47,11 @@ namespace Infrastructure
                     ClockSkew = TimeSpan.Zero
                 };
             });
+            services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
+            services.AddScoped<IUnitOfWork, Infrastructure.UnitOfWork.UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
-            
+
             return services;
         }
     }

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Common.PasswordHasher;
+using Application.Interfaces.PasswordHasher;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -15,7 +16,10 @@ namespace Application
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
-            services.AddSingleton<PasswordHasher>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
             return services;
         }
     }
