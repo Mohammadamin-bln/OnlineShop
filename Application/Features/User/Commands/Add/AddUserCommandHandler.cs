@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Exceptions;
 using Application.Interfaces.PasswordHasher;
 using Application.Interfaces.UnitOfWork;
 using AutoMapper;
@@ -26,10 +27,16 @@ namespace Application.Features.User.Commands.Add
 
         public async Task<Guid> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
+            var checkExists= await _unitOfWork.UserRepository.ExistsAsync(u=>u.PhoneNumber == request.PhoneNumber);
+            if (checkExists)
+            {
+                throw new ConflictException("the user with this phone number allready exists");
+            }
             var user = _mapper.Map<Domain.Entities.User>(request);
             user.PasswordHash = _passwordHasher.Hash(request.PasswordHash);
-            await _unitOfWork.UserRepository.AddAsync(user);
+            await _unitOfWork.UserRepository.AddAsync(user,cancellationToken);
             await _unitOfWork.SaveAsync();
+            
 
             return user.Id;
         }
