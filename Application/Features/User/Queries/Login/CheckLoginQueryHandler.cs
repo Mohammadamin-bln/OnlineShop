@@ -41,8 +41,8 @@ namespace Application.Features.User.Queries.Login
                 throw new UnauthorizedAccessException("wrong password!");
             }
 
-            //await _otpServoce.SendOtpAsync(request.PhoneNumber);
-            return "movafaghiat";
+            await _otpServoce.SendOtpAsync(request.PhoneNumber);
+            return $"verify code sent to{user.PhoneNumber} ";
         }
     }
 }

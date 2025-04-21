@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.BaseRepository;
 using Application.Interfaces.OtpService;
+using Application.Interfaces.TokenProvider;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
 using Infrastructure.Authorization;
@@ -31,6 +32,7 @@ namespace Infrastructure
             });
             services.AddSingleton<TokenProvider>();
 
+            #region authorization config
             services.AddAuthorization();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
@@ -49,11 +51,15 @@ namespace Infrastructure
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            #region addscopes
+            #endregion
+
+
+            #region Dependency Injection
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
             services.AddScoped<IUnitOfWork, Infrastructure.UnitOfWork.UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpClient<IOtpService, OtpService>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
             #endregion
 
             return services;

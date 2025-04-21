@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces.TokenProvider;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -11,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Authorization
 {
-    internal sealed class TokenProvider(IConfiguration configuration)
+    internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvider
     {
         public string Create(User user)
         {
