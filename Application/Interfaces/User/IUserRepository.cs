@@ -9,5 +9,6 @@ namespace Application.Interfaces.User
 {
     public interface IUserRepository : IRepository<Domain.Entities.User, Guid>
     {
+        public Task<Domain.Entities.User?> GetUserByPhoneNumber(string phoneNumber);
     }
 }

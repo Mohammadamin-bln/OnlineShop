@@ -14,6 +14,7 @@ namespace Infrastructure.Contexts
         { 
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Otp> Otps { get; set; }
     }
 
 }
