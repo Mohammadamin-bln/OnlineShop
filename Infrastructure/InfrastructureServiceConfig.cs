@@ -5,13 +5,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.BaseRepository;
+using Application.Interfaces.FileService;
 using Application.Interfaces.OtpService;
+using Application.Interfaces.Product;
 using Application.Interfaces.TokenProvider;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
 using Infrastructure.Authorization;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Product;
 using Infrastructure.Repositories.User;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -60,6 +63,8 @@ namespace Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpClient<IOtpService, OtpService>();
             services.AddScoped<ITokenProvider, TokenProvider>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IProductRepository,ProductRepository>();
             #endregion
 
             return services;

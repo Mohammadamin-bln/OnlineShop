@@ -11,6 +11,6 @@ namespace Domain.Common
         public TKey Id { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime DateCreate { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

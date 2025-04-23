@@ -34,6 +34,7 @@ namespace Application.Features.User.Commands.Add
             }
             var user = _mapper.Map<Domain.Entities.User>(request);
             user.PasswordHash = _passwordHasher.Hash(request.PasswordHash);
+            user.DateCreate = DateTime.UtcNow;
             await _unitOfWork.UserRepository.AddAsync(user,cancellationToken);
             await _unitOfWork.SaveAsync();
             
