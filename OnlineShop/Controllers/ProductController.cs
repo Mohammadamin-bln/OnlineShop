@@ -1,6 +1,8 @@
 ﻿using Application.Features.Brand.Commands.Add;
 using Application.Features.Product.Commands.Add;
+using Application.Features.Product.Commands.Update;
 using Application.Features.ProductColor.Commands.Add;
+using Application.Features.ProductColor.Commands.Update;
 using Application.Features.User.Commands.Add;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +37,20 @@ namespace Presentation.Controllers
 
         [HttpPost("Add/Product")]
         public async Task<IActionResult> CreateProduct(AddProductCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut("Update/Product")]
+        public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProductColor(UpdateProductColorCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
