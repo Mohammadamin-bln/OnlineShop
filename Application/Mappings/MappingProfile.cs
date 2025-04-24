@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Brand.Commands.Add;
+using Application.Features.Brand.Commands.Update;
 using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
 using Application.Features.ProductColor.Commands.Add;
@@ -34,6 +35,7 @@ namespace Application.Mappings
 
             #region Brand
             CreateMap<AddBrandCommand, Brand>();
+            CreateMap<UpdateBrandCommand, Brand>();
             #endregion
         }
     }

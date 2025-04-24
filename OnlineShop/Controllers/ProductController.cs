@@ -1,4 +1,5 @@
 ﻿using Application.Features.Brand.Commands.Add;
+using Application.Features.Brand.Commands.Update;
 using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
 using Application.Features.ProductColor.Commands.Add;
@@ -49,8 +50,15 @@ namespace Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("Update/Color")]
         public async Task<IActionResult> UpdateProductColor(UpdateProductColorCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut("Update/Brand")]
+        public async Task<IActionResult> UpdateBrand(UpdateBrandCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
