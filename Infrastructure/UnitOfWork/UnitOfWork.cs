@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces.Brand;
 using Application.Interfaces.Product;
+using Application.Interfaces.ProductColor;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
 using Infrastructure.Contexts;
@@ -17,16 +19,26 @@ namespace Infrastructure.UnitOfWork
 
         private readonly ApplicationDbContext _context;
 
-        public UnitOfWork(ApplicationDbContext context, IUserRepository userRepository,IProductRepository productRepository)
+        public UnitOfWork(ApplicationDbContext context,
+            IUserRepository userRepository,
+            IProductRepository productRepository,
+            IProductColorRepository productColorRepository,
+            IBrandRepository brandRepository)
         {
             _context = context;
             UserRepository = userRepository;
             ProductRepository = productRepository;
-            
+            ProductColorRepository = productColorRepository;
+            BrandRepository = brandRepository;
+
+
         }
 
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
+
+        public IBrandRepository BrandRepository { get; }
+        public IProductColorRepository ProductColorRepository { get; }
 
         public void Dispose()
         {

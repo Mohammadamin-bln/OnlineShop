@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Interfaces.Brand;
 using Application.Interfaces.Product;
+using Application.Interfaces.ProductColor;
 using Application.Interfaces.User;
 
 namespace Application.Interfaces.UnitOfWork
@@ -12,6 +14,9 @@ namespace Application.Interfaces.UnitOfWork
     {
         IUserRepository UserRepository { get; }
         IProductRepository ProductRepository { get; }
+
+        IProductColorRepository ProductColorRepository { get; }
+        IBrandRepository BrandRepository { get; }
 
         public Task<int> SaveAsync();
 

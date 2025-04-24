@@ -16,7 +16,7 @@ namespace Application.Common.Response
     {
         public T Data { get; set; }
 
-        public static Response<T> Success(T data, string message = null)
+        public static Response<T> Success(T? data, string message = null)
         {
             return new Response<T> { Data = data, Succeeded = true, Message = message };
         }

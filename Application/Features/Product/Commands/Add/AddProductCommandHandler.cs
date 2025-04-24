@@ -12,7 +12,7 @@ using MediatR;
 
 namespace Application.Features.Product.Commands.Add
 {
-    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Response<long>>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Response<string>>
     {
 
         private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +26,7 @@ namespace Application.Features.Product.Commands.Add
             _fileService = fileService;
         }
 
-        public async Task<Response<long>> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<Response<string>> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             string[] allowedFileExtentions = [".jpg", ".jpeg", ".png"];
             string createdImageName = await _fileService.SaveFileAsync(request.Photo, allowedFileExtentions);
@@ -37,10 +37,14 @@ namespace Application.Features.Product.Commands.Add
             product.DateCreate = DateTime.UtcNow;
 
 
-            await _unitOfWork.ProductRepository.AddAsync(product,cancellationToken);
+           var result = await _unitOfWork.ProductRepository.AddAsync(product,cancellationToken);
             await _unitOfWork.SaveAsync();
+            if (result > 1)
+            {
+                return Response<string>.Fail("could not add product");
+            }
 
-            return Response<long>.Success(product.Id);
+            return Response<string>.Success("product successfully added");
             
                 
             

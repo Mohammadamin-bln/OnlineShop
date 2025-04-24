@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Product.Commands.Add
 {
-    public class AddProductCommand : IRequest<Response<long>>
+    public class AddProductCommand : IRequest<Response<string>>
     {
         public int ColorId { get; set; }
 

@@ -5,16 +5,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.BaseRepository;
+using Application.Interfaces.Brand;
 using Application.Interfaces.FileService;
 using Application.Interfaces.OtpService;
 using Application.Interfaces.Product;
+using Application.Interfaces.ProductColor;
 using Application.Interfaces.TokenProvider;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
 using Infrastructure.Authorization;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Brand;
 using Infrastructure.Repositories.Product;
+using Infrastructure.Repositories.ProductColor;
 using Infrastructure.Repositories.User;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -65,6 +69,8 @@ namespace Infrastructure
             services.AddScoped<ITokenProvider, TokenProvider>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<IProductColorRepository,ProductColorRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
             #endregion
 
             return services;
