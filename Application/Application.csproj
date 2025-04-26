@@ -11,11 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
     <Folder Include="Features\Brand\Queries\" />
     <Folder Include="Features\ProductColor\Queries\" />
     <Folder Include="Features\ProductRating\" />
-    <Folder Include="Features\Product\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +21,7 @@
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
   </ItemGroup>
 

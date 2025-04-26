@@ -14,5 +14,8 @@ namespace Application.Interfaces.BaseRepository
         Task<TKey> AddAsync(TEntity entity, CancellationToken cancellationToken);
         void Update(TEntity entity);
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+        public Task<bool> SoftDelete(TEntity entity);
+        public void Delete(TEntity entity);
+        public IQueryable<TEntity> GetQueryable();
     }
 }

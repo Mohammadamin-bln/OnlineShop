@@ -42,5 +42,23 @@ namespace Infrastructure.Repositories
         {
              _dbSet.Update(entity);
         }
+
+        public Task<bool> SoftDelete(TEntity entity)
+        {
+            entity.IsDeleted = true;
+            _dbSet.Update(entity);
+            return Task.FromResult(true);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _dbSet.Remove(entity);
+        }
+
+        public IQueryable<TEntity> GetQueryable()
+        {
+            return _dbSet.AsNoTracking();
+        }
+
     }
 }

@@ -1,7 +1,10 @@
-﻿using Application.Features.Brand.Commands.Add;
+﻿using Application.Common.PaginatedResponse;
+using Application.Dtos.Product;
+using Application.Features.Brand.Commands.Add;
 using Application.Features.Brand.Commands.Update;
 using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
+using Application.Features.Product.Queries.GetPaginated;
 using Application.Features.ProductColor.Commands.Add;
 using Application.Features.ProductColor.Commands.Update;
 using Application.Features.User.Commands.Add;
@@ -61,6 +64,13 @@ namespace Presentation.Controllers
         public async Task<IActionResult> UpdateBrand(UpdateBrandCommand command)
         {
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("Get/List")]
+        public async Task<ActionResult> GetPaginatedProducts([FromQuery] GetListOfProductsQuery query)
+        {
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }

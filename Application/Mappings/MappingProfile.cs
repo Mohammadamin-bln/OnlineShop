@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Dtos.Product;
 using Application.Features.Brand.Commands.Add;
 using Application.Features.Brand.Commands.Update;
 using Application.Features.Product.Commands.Add;
@@ -26,6 +27,9 @@ namespace Application.Mappings
             #region product
             CreateMap<UpdateProductCommand, Product>();
             CreateMap<AddProductCommand, Product>();
+            CreateMap<Product, ProductListDto>()
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.ProductColor.Name))
+            .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
             #endregion
 
             #region ProductColor
