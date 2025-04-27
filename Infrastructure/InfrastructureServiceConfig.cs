@@ -10,15 +10,18 @@ using Application.Interfaces.FileService;
 using Application.Interfaces.OtpService;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
+using Application.Interfaces.ProductRating;
 using Application.Interfaces.TokenProvider;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
+using Domain.Entities;
 using Infrastructure.Authorization;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Brand;
 using Infrastructure.Repositories.Product;
 using Infrastructure.Repositories.ProductColor;
+using Infrastructure.Repositories.ProductRating;
 using Infrastructure.Repositories.User;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -71,6 +74,7 @@ namespace Infrastructure
             services.AddScoped<IProductRepository,ProductRepository>();
             services.AddScoped<IProductColorRepository,ProductColorRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IProductRatingRepository, ProductRatingRepository>();
             #endregion
 
             return services;

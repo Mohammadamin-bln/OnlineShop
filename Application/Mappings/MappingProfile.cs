@@ -10,6 +10,7 @@ using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
 using Application.Features.ProductColor.Commands.Add;
 using Application.Features.ProductColor.Commands.Update;
+using Application.Features.ProductRating.Commands.Add;
 using Application.Features.User.Commands.Add;
 using AutoMapper;
 using Domain.Entities;
@@ -40,6 +41,10 @@ namespace Application.Mappings
             #region Brand
             CreateMap<AddBrandCommand, Brand>();
             CreateMap<UpdateBrandCommand, Brand>();
+            #endregion
+
+            #region ProductRating
+            CreateMap<AddProductRatingCommand, ProductRating>();
             #endregion
         }
     }

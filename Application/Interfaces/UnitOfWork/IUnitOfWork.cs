@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Interfaces.Brand;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
+using Application.Interfaces.ProductRating;
 using Application.Interfaces.User;
 
 namespace Application.Interfaces.UnitOfWork
@@ -17,6 +18,7 @@ namespace Application.Interfaces.UnitOfWork
 
         IProductColorRepository ProductColorRepository { get; }
         IBrandRepository BrandRepository { get; }
+        IProductRatingRepository ProductRatingRepository { get; }
 
         public Task<int> SaveAsync();
 

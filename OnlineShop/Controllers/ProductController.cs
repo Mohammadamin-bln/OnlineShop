@@ -7,6 +7,7 @@ using Application.Features.Product.Commands.Update;
 using Application.Features.Product.Queries.GetPaginated;
 using Application.Features.ProductColor.Commands.Add;
 using Application.Features.ProductColor.Commands.Update;
+using Application.Features.ProductRating.Commands.Add;
 using Application.Features.User.Commands.Add;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +72,13 @@ namespace Presentation.Controllers
         public async Task<ActionResult> GetPaginatedProducts([FromQuery] GetListOfProductsQuery query)
         {
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPost("Add/Product/Rating")]
+        public async Task<IActionResult> AddProductRating(AddProductRatingCommand command)
+        {
+            var result= await _mediator.Send(command);
             return Ok(result);
         }
     }

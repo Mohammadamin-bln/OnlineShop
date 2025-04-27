@@ -36,6 +36,7 @@ namespace Application.Features.Brand.Commands.Update
             }
 
             _mapper.Map(request,brand);
+            brand.UpdatedAt = DateTime.UtcNow;
 
             _unitOfWork.BrandRepository.Update(brand);
             await _unitOfWork.SaveAsync();

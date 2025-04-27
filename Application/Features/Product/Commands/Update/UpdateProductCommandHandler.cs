@@ -39,6 +39,7 @@ namespace Application.Features.Product.Commands.Update
 
              var photoPath = await _fileService.SaveFileAsync(request.Photo,allowedFileExtentions);
              product.Photo = photoPath;
+            product.UpdatedAt = DateTime.UtcNow;
             
             _unitOfWork.ProductRepository.Update(product);
             await _unitOfWork.SaveAsync();

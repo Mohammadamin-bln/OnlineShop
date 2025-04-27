@@ -30,6 +30,7 @@ namespace Application.Features.ProductColor.Commands.Update
                 throw new NotFoundException("product color not found ");
             }
             _mapper.Map(request,productColor);
+            productColor.UpdatedAt = DateTime.UtcNow;
 
             _unitOfWork.ProductColorRepository.Update(productColor);
             await _unitOfWork.SaveAsync();

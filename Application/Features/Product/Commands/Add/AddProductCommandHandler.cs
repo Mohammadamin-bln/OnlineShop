@@ -39,7 +39,7 @@ namespace Application.Features.Product.Commands.Add
 
            var result = await _unitOfWork.ProductRepository.AddAsync(product,cancellationToken);
             await _unitOfWork.SaveAsync();
-            if (result > 1)
+            if (result <= 0)
             {
                 return Response<string>.Fail("could not add product");
             }

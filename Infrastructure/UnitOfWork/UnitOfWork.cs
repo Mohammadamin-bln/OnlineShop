@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Interfaces.Brand;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
+using Application.Interfaces.ProductRating;
 using Application.Interfaces.UnitOfWork;
 using Application.Interfaces.User;
 using Infrastructure.Contexts;
@@ -23,17 +24,19 @@ namespace Infrastructure.UnitOfWork
             IUserRepository userRepository,
             IProductRepository productRepository,
             IProductColorRepository productColorRepository,
-            IBrandRepository brandRepository)
+            IBrandRepository brandRepository,
+            IProductRatingRepository productRatingRepository)
         {
             _context = context;
             UserRepository = userRepository;
             ProductRepository = productRepository;
             ProductColorRepository = productColorRepository;
             BrandRepository = brandRepository;
+            ProductRatingRepository = productRatingRepository;
 
 
         }
-
+        public IProductRatingRepository ProductRatingRepository { get; }
         public IUserRepository UserRepository { get; }
         public IProductRepository ProductRepository { get; }
 
