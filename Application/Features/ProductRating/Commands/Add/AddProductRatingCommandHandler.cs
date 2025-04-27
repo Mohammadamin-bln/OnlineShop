@@ -28,14 +28,24 @@ namespace Application.Features.ProductRating.Commands.Add
 
         public async Task<Response<string>> Handle(AddProductRatingCommand request, CancellationToken cancellationToken)
         {
-            var userId= _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId=  _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(userId == null)
             {
                 throw new UnauthorizedAccessException("user not authorized");
             }
+
+            bool isRatingExists = await _unitOfWork.ProductRatingRepository
+                .ExistsAsync(r => r.ProductId == request.ProductId && r.UserId == Guid.Parse(userId));
+
+            if(isRatingExists)
+            {
+                return Response<string>.Fail("you have allready rated this product.");
+
+            }
             var productRating = _mapper.Map<Domain.Entities.ProductRating>(request);
 
             productRating.DateCreate = DateTime.UtcNow;
+            productRating.UserId = Guid.Parse(userId);
 
             var result = await _unitOfWork.ProductRatingRepository.AddAsync(productRating, cancellationToken);
             await _unitOfWork.SaveAsync();

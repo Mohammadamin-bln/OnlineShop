@@ -9,5 +9,6 @@ namespace Application.Interfaces.Product
 {
     public interface IProductRepository : IRepository<Domain.Entities.Product, long>
     {
+        public  Task<Domain.Entities.Product?> GetByIdWithIncludesAsync(long id);
     }
 }

@@ -31,6 +31,10 @@ namespace Application.Mappings
             CreateMap<Product, ProductListDto>()
             .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.ProductColor.Name))
             .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
+            CreateMap<Product, ProductDetailsDto>()
+                            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name))
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.ProductColor.Name));
             #endregion
 
             #region ProductColor

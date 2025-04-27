@@ -12,9 +12,9 @@ namespace Application.Features.Product.Commands.Add
 {
     public class AddProductCommand : IRequest<Response<string>>
     {
-        public int ColorId { get; set; }
-
-        public int BrandId { get; set; }
+        public long ColorId { get; set; }
+        public long BrandId { get; set; }
+        public long CategoryId { get; set; }
 
         public string Name { get; set; }
 

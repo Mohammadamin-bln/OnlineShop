@@ -4,14 +4,17 @@ using Application.Features.Brand.Commands.Add;
 using Application.Features.Brand.Commands.Update;
 using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
+using Application.Features.Product.Queries.GetById;
 using Application.Features.Product.Queries.GetPaginated;
 using Application.Features.ProductColor.Commands.Add;
 using Application.Features.ProductColor.Commands.Update;
 using Application.Features.ProductRating.Commands.Add;
 using Application.Features.User.Commands.Add;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Presentation.Controllers
 {
@@ -74,11 +77,19 @@ namespace Presentation.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-
+        [Authorize]
         [HttpPost("Add/Product/Rating")]
         public async Task<IActionResult> AddProductRating(AddProductRatingCommand command)
         {
             var result= await _mediator.Send(command);
+            return Ok(result);
+        }
+        
+
+        [HttpGet("Get/Product/By/Id")]
+        public async Task<IActionResult> GetProductById(GetProductByIdQuery query)
+        {
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }

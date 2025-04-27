@@ -15,6 +15,7 @@ namespace Domain.Entities
 
         public long ColorId { get; set; }
         public long BrandId { get; set; }
+        public long CategoryId { get; set; }
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -26,13 +27,15 @@ namespace Domain.Entities
 
         [ForeignKey(nameof(BrandId))]
         public virtual Brand Brand { get; set; }
+        [ForeignKey(nameof(CategoryId))]
+        public virtual Category Category { get; set; }
 
         public string Description { get; set; }
 
         public int Stock { get; set; }
 
 
-        public ProductRating? ProductRating { get; set; }
+        public ICollection<ProductRating>? ProductRatings { get; set; }
         public string Photo { get; set; }
 
 

@@ -10,7 +10,6 @@ namespace Application.Features.ProductRating.Commands.Add
 {
     public class AddProductRatingCommand : IRequest<Response<string>>
     {
-        public Guid UserId { get; set; }
 
         public long ProductId { get; set; }
 

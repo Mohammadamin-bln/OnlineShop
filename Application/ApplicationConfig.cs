@@ -19,6 +19,7 @@ namespace Application
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddHttpContextAccessor();
 
 
             return services;
