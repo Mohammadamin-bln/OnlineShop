@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.Brand;
+using Application.Interfaces.Offer;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
 using Application.Interfaces.ProductRating;
@@ -25,7 +26,8 @@ namespace Infrastructure.UnitOfWork
             IProductRepository productRepository,
             IProductColorRepository productColorRepository,
             IBrandRepository brandRepository,
-            IProductRatingRepository productRatingRepository)
+            IProductRatingRepository productRatingRepository,
+            IOfferRepository OfferRepository)
         {
             _context = context;
             UserRepository = userRepository;
@@ -42,6 +44,7 @@ namespace Infrastructure.UnitOfWork
 
         public IBrandRepository BrandRepository { get; }
         public IProductColorRepository ProductColorRepository { get; }
+        public IOfferRepository OfferRepository { get; }
 
         public void Dispose()
         {
@@ -51,7 +54,15 @@ namespace Infrastructure.UnitOfWork
 
         public async Task<int> SaveAsync()
         {
-            return await _context.SaveChangesAsync();
+            if( await _context.SaveChangesAsync() > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+            ;
         }
 
         protected virtual void Dispose(bool disposing)

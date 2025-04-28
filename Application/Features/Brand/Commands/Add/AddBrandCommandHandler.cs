@@ -28,15 +28,23 @@ namespace Application.Features.Brand.Commands.Add
             var checkExists = await _unitOfWork.BrandRepository.ExistsAsync(x => x.Name == request.Name);
             if (checkExists)
             {
-                throw new ConflictException("this Brand allready exists");
-
+                throw new ConflictException("This Brand already exists");
             }
-            
+
+            // Map the request to the brand entity
             var brandOfProduct = _mapper.Map<Domain.Entities.Brand>(request);
 
-            await _unitOfWork.BrandRepository.AddAsync(brandOfProduct,cancellationToken);
-            await _unitOfWork.SaveAsync();
+            // Add the brand to the repository
+             await _unitOfWork.BrandRepository.AddAsync(brandOfProduct, cancellationToken);
+            var result = await _unitOfWork.SaveAsync();
 
+            // Check if the result (Id) is valid (greater than 0)
+            if (result == 0)
+            {
+                return Response<bool>.Fail("Failed to add brand");
+            }
+
+            // Return a success response
             return Response<bool>.Success(true, "Brand added successfully");
         }
     }

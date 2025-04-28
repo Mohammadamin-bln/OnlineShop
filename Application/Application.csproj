@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Brand\Queries\" />
-    <Folder Include="Features\ProductColor\Queries\" />
+    <Folder Include="Features\Offer\Queries\" />
     <Folder Include="Features\ProductRating\Queries\" />
   </ItemGroup>
 

@@ -37,9 +37,9 @@ namespace Application.Features.Product.Commands.Add
             product.DateCreate = DateTime.UtcNow;
 
 
-           var result = await _unitOfWork.ProductRepository.AddAsync(product,cancellationToken);
-            await _unitOfWork.SaveAsync();
-            if (result <= 0)
+            await _unitOfWork.ProductRepository.AddAsync(product,cancellationToken);
+            var result = await _unitOfWork.SaveAsync();
+            if (result == 0)
             {
                 return Response<string>.Fail("could not add product");
             }

@@ -2,12 +2,14 @@
 using Application.Dtos.Product;
 using Application.Features.Brand.Commands.Add;
 using Application.Features.Brand.Commands.Update;
+using Application.Features.Brand.Queries.GetList;
 using Application.Features.Product.Commands.Add;
 using Application.Features.Product.Commands.Update;
 using Application.Features.Product.Queries.GetById;
 using Application.Features.Product.Queries.GetPaginated;
 using Application.Features.ProductColor.Commands.Add;
 using Application.Features.ProductColor.Commands.Update;
+using Application.Features.ProductColor.Queries.GetList;
 using Application.Features.ProductRating.Commands.Add;
 using Application.Features.User.Commands.Add;
 using MediatR;
@@ -87,7 +89,21 @@ namespace Presentation.Controllers
         
 
         [HttpGet("Get/Product/By/Id")]
-        public async Task<IActionResult> GetProductById(GetProductByIdQuery query)
+        public async Task<IActionResult> GetProductById([FromQuery]GetProductByIdQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("Get/Brand/List")]
+        public async Task<IActionResult> GetBrandList([FromQuery]GetBrandListQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("Get/Color/List")]
+        public async Task<IActionResult> GetColorList([FromQuery] GetProductColorListQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);

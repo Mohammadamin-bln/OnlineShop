@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.Brand;
+using Application.Interfaces.Offer;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
 using Application.Interfaces.ProductRating;
@@ -19,6 +20,7 @@ namespace Application.Interfaces.UnitOfWork
         IProductColorRepository ProductColorRepository { get; }
         IBrandRepository BrandRepository { get; }
         IProductRatingRepository ProductRatingRepository { get; }
+        IOfferRepository OfferRepository { get; }
 
         public Task<int> SaveAsync();
 

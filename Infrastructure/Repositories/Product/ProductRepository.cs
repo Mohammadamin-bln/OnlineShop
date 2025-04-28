@@ -22,7 +22,10 @@ namespace Infrastructure.Repositories.Product
 
         public async Task<Domain.Entities.Product?> GetByIdWithIncludesAsync(long id)
         {
-            return await _context.Products.Include(p => p.ProductRatings)
+            return await _context.Products
+                .Include(p => p.ProductRatings)
+                .Include(p=>p.ProductColor)
+                .Include(p=>p.Brand)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

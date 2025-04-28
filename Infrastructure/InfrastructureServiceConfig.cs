@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Application.Interfaces.BaseRepository;
 using Application.Interfaces.Brand;
 using Application.Interfaces.FileService;
+using Application.Interfaces.Offer;
 using Application.Interfaces.OtpService;
 using Application.Interfaces.Product;
 using Application.Interfaces.ProductColor;
@@ -19,6 +20,7 @@ using Infrastructure.Authorization;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Brand;
+using Infrastructure.Repositories.Offer;
 using Infrastructure.Repositories.Product;
 using Infrastructure.Repositories.ProductColor;
 using Infrastructure.Repositories.ProductRating;
@@ -40,7 +42,7 @@ namespace Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddSingleton<TokenProvider>();
+
 
             #region authorization config
             services.AddAuthorization();
@@ -66,7 +68,7 @@ namespace Infrastructure
 
             #region Dependency Injection
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
-            services.AddScoped<IUnitOfWork, Infrastructure.UnitOfWork.UnitOfWork>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpClient<IOtpService, OtpService>();
             services.AddScoped<ITokenProvider, TokenProvider>();
@@ -75,6 +77,11 @@ namespace Infrastructure
             services.AddScoped<IProductColorRepository,ProductColorRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IProductRatingRepository, ProductRatingRepository>();
+            services.AddScoped<IOfferRepository,OfferRepository>();
+            services.AddScoped<IUnitOfWork, Infrastructure.UnitOfWork.UnitOfWork>();
+
+            services.AddScoped<ITokenProvider, TokenProvider>();
+
             #endregion
 
             return services;

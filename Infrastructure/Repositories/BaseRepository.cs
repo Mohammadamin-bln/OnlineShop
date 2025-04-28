@@ -60,5 +60,10 @@ namespace Infrastructure.Repositories
             return _dbSet.AsNoTracking();
         }
 
+        public Task<List<TEntity>> GetList(CancellationToken cancellationToken = default)
+        {
+            return _dbSet.ToListAsync(cancellationToken);
+        }
+
     }
 }

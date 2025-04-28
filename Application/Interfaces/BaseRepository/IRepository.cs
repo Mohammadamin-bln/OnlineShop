@@ -17,5 +17,6 @@ namespace Application.Interfaces.BaseRepository
         public Task<bool> SoftDelete(TEntity entity);
         public void Delete(TEntity entity);
         public IQueryable<TEntity> GetQueryable();
+        public Task<List<TEntity>> GetList(CancellationToken cancellationToken = default);
     }
 }

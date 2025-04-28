@@ -26,6 +26,9 @@ namespace Infrastructure.Contexts
         public DbSet<ProductRating> ProductRatings { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<ProductOffer> ProductOffers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

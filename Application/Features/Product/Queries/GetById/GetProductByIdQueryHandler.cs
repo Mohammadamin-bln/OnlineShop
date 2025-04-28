@@ -14,8 +14,16 @@ namespace Application.Features.Product.Queries.GetById
 {
     public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Response<ProductDetailsDto>>
     {
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
+        public GetProductByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
         public async Task<Response<ProductDetailsDto>> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdWithIncludesAsync(request.Id);
@@ -26,7 +34,7 @@ namespace Application.Features.Product.Queries.GetById
             }
             var result = _mapper.Map<ProductDetailsDto>(product);
 
-            if (product.ProductRatings != null)
+            if (product.ProductRatings != null && product.ProductRatings.Any())
             {
                 result.AverageRating = product.ProductRatings.Average(a => a.Stars);
             }
