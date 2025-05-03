@@ -19,5 +19,8 @@ namespace Application.Dtos.Product
         public string ColorName { get; set; }
         public string BrandName { get; set; }
         public string CategoryName { get; set; }
+
+        public decimal? DiscountedPrice { get; set; }
+        public string? DiscountBadge { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 using Infrastructure;
 using Application;
 using Presentation.Middlewares;
+using Hangfire;
+using Infrastructure.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,8 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Your API",
         Version = "v1"
     });
+
+
 
     // Add JWT Authentication to Swagger
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -42,6 +46,10 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
+builder.Services.AddHangfireServer();
+
 builder.Services.AddProblemDetails(options =>
 {
     options.CustomizeProblemDetails = context =>
@@ -62,6 +70,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
+
+app.UseHangfireDashboard();
+
+app.UseHangfireServer();
+
+RecurringJob.AddOrUpdate<OfferService>(
+    x => x.DeactivateExpiredOffers(),
+    Cron.Minutely
+);
 
 app.UseAuthentication();
 app.UseAuthorization();

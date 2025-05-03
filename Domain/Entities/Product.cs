@@ -35,7 +35,8 @@ namespace Domain.Entities
         public int Stock { get; set; }
 
 
-        public ICollection<ProductRating>? ProductRatings { get; set; }
+        public ICollection<ProductRating> ProductRatings { get; set; }
+        public ICollection<ProductOffer> ProductOffers { get; set; }
         public string Photo { get; set; }
 
 

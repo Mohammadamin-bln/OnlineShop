@@ -42,6 +42,19 @@ namespace Application.Features.Product.Queries.GetById
             {
                 result.AverageRating = 0;
             }
+
+            var activeOffer = await _unitOfWork.ProductRepository.GetActiveOfferAsync(product.Id);
+
+            if (activeOffer != null)
+            {
+                var discountedPrice = product.Price * (1 - activeOffer.DiscountPercentage / 100m);
+
+                result.DiscountedPrice = discountedPrice;
+
+                result.DiscountBadge = $"{activeOffer.DiscountPercentage}% OFF";
+
+            }
+
             return Response<ProductDetailsDto>.Success(result);
 
         }

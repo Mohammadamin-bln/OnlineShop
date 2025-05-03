@@ -16,7 +16,7 @@ namespace Application.Common.Paginated
         public int TotalCount { get; set; }
         public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
 
-        private PaginatedList(List<T> items, int pageIndex, int pageSize, int totalCount)
+        public PaginatedList(List<T> items, int pageIndex, int pageSize, int totalCount)
         {
             Items = items;
             PageIndex = pageIndex;

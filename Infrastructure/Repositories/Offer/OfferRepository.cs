@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces.Offer;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories.Offer
 {
@@ -14,6 +15,12 @@ namespace Infrastructure.Repositories.Offer
         public OfferRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<List<Domain.Entities.Offer>> GetExpiredOffersAsync()
+        {
+            return await _context.Offers.Where(x => x.EndDate <= DateTime.UtcNow)
+                .ToListAsync();
         }
     }
 }

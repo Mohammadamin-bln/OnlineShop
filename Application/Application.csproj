@@ -11,12 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Category\Commands\Delete\" />
     <Folder Include="Features\Offer\Queries\" />
+    <Folder Include="Features\ProductOffer\Queries\" />
     <Folder Include="Features\ProductRating\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Hangfire" Version="1.8.18" />
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />

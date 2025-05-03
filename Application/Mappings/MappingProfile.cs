@@ -17,6 +17,11 @@ using Application.Features.User.Commands.Add;
 using AutoMapper;
 using Domain.Entities;
 using Application.Dtos.ProductColor;
+using Application.Features.Category.Commands.Add;
+using Application.Features.Offer.Commands;
+using Application.Features.ProductOffer.Commands.Add;
+using Application.Features.Category.Commands.Update;
+using Application.Dtos.Category;
 
 namespace Application.Mappings
 {
@@ -56,6 +61,22 @@ namespace Application.Mappings
             #region ProductRating
             CreateMap<AddProductRatingCommand, ProductRating>();
             #endregion
+
+            #region Category
+            CreateMap<AddCategoryCommand, Category>();
+            CreateMap<UpdateCategoryCommand, Category>();
+            CreateMap<Category, CategoryListDto>();
+            #endregion
+
+            #region Offer
+            CreateMap<AddOfferCommand, Offer>();
+            #endregion
+
+            #region ProductOffer
+            CreateMap<AddProductOfferCommand, ProductOffer>();
+            #endregion
+
+
         }
     }
 }

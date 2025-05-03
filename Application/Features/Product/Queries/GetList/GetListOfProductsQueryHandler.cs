@@ -33,9 +33,11 @@ namespace Application.Features.Product.Queries.GetPaginated
             var productsQuery = _unitOfWork.ProductRepository.GetQueryable();
 
             productsQuery = productsQuery.Include(x => x.ProductColor)
-                .Include(x => x.Brand);
+                .Include(x => x.Brand)
+                                .Include(x => x.ProductOffers)
+                    .ThenInclude(po => po.Offer);
 
-            //.ProjectTo<ProductListDto>(_mapper.ConfigurationProvider);
+            //.ProjectTo<ProductListDto>(_mapper.ConfigurationProvider);by the 
 
             if (request.BrandId.HasValue)
             {
@@ -79,16 +81,42 @@ namespace Application.Features.Product.Queries.GetPaginated
                 productsQuery = productsQuery.OrderBy(x => x.Name);
             }
 
+            var paginatedProducts = await PaginatedList<Domain.Entities.Product>.CreateAsync(
+            productsQuery,
+            request.PageIndex,
+            request.PageSize
+            );
 
 
-            var paginatedList = await PaginatedList<ProductListDto>.CreateAsync(productsQuery.ProjectTo<ProductListDto>(_mapper.ConfigurationProvider), request.PageIndex, request.PageSize);
-
-            if (!paginatedList.Items.Any())
+            if (!paginatedProducts.Items.Any()) 
             {
-                throw new NotFoundException("no products found");
+                throw new NotFoundException("No products found");
             }
 
-            return new PaginatedResponse<ProductListDto>(paginatedList);
+            var productListDtos = paginatedProducts.Items.Select(product =>
+            {
+                var dto = _mapper.Map<ProductListDto>(product);
+
+                var activeOffer = product.ProductOffers
+                    .FirstOrDefault(po =>
+                        !po.Offer.IsDeleted)?.Offer;
+                if (activeOffer != null)
+                {
+                    var discountedPrice = product.Price * (1 - activeOffer.DiscountPercentage / 100);
+                    dto.DiscountedPrice = discountedPrice;
+                    dto.DiscountBadge = $"{activeOffer.DiscountPercentage}% OFF"; ;
+                }
+                return dto;
+            }).ToList();
+
+            return new PaginatedResponse<ProductListDto>(
+                new PaginatedList<ProductListDto>(
+                    productListDtos,
+                    paginatedProducts.PageIndex,
+                    paginatedProducts.PageSize,
+                    paginatedProducts.TotalCount
+                )
+            );
 
 
 

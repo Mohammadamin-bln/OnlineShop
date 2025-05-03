@@ -23,9 +23,13 @@ namespace Application.Features.Offer.Commands
 
         public async Task<Response<long>> Handle(AddOfferCommand request, CancellationToken cancellationToken)
         {
+
             var offer= _mapper.Map<Domain.Entities.Offer>(request);
 
             offer.DateCreate = DateTime.UtcNow;
+
+
+
 
             await _unitOfWork.OfferRepository.AddAsync(offer,cancellationToken);
             var result = await _unitOfWork.SaveAsync();

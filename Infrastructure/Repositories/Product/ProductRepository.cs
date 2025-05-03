@@ -28,5 +28,29 @@ namespace Infrastructure.Repositories.Product
                 .Include(p=>p.Brand)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<Domain.Entities.Offer> GetActiveOfferAsync(long productId)
+        {
+            return await _context.ProductOffers
+                .Where(po => po.ProductId == productId && !po.Offer.IsDeleted)
+                .Select(po => po.Offer)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<Domain.Entities.Offer> GetActiveOfferForProductListAsync(long productId)
+        {
+            var product = await _context.Products
+                .Include(p => p.ProductOffers)
+                .ThenInclude(po => po.Offer)
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null)
+                return null;
+
+
+            return product.ProductOffers
+                .FirstOrDefault(po => !po.Offer.IsDeleted)?.Offer;
+        }
+
+
     }
 }
