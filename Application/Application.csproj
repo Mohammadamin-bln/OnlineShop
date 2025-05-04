@@ -15,6 +15,7 @@
     <Folder Include="Features\Offer\Queries\" />
     <Folder Include="Features\ProductOffer\Queries\" />
     <Folder Include="Features\ProductRating\Queries\" />
+    <Folder Include="Features\ShoppingCart\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
